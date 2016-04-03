@@ -7,24 +7,10 @@ console.log("ba.js invoked");
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const Menu = remote.Menu;
-//const MenuItem = remote.MenuItem;
-
-//var menu = new Menu();
-//menu.append(new MenuItem({ label: 'MenuItem1', click: function() { console.log('item 1 clicked'); } }));
-//menu.append(new MenuItem({ type: 'separator' }));
-//menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
-
-//window.addEventListener('contextmenu', function (e) {
-//    e.preventDefault();
-//    menu.popup(remote.getCurrentWindow());
-//}, false);
 
 const fs = require('fs');
 
 var parseXML = require('xml2js').parseString;
-
-
-
 
 var baTemplate = [
 
@@ -34,12 +20,18 @@ var baTemplate = [
             {
                 label: 'New Presentation',
                 accelerator: 'Command+N',
-                click: function() { app.quit(); }
+                click: function() {
+                    console.log("newProject clicked");
+                    newProject();
+                }
             },
             {
                 label: 'Open Presentation',
                 accelerator: 'Command+O',
-                click: function() { app.quit(); }
+                click: function() {
+                    console.log("openProject clicked");
+                    openProject();
+                }
             },
             {
                 type: 'separator'
@@ -47,7 +39,10 @@ var baTemplate = [
             {
                 label: 'Quit',
                 accelerator: 'Command+Q',
-                click: function() { remote.app.quit(); }
+                click: function() {
+                    remote.app.quit();
+                }
+                //click: function() { remote.app.quit(); }
             },
         ]
     }
@@ -220,11 +215,12 @@ console.log("create menu object");
 Menu.setApplicationMenu(menu);
 console.log("set application menu");
 
+function newProject() {
 
-
-
+};
 
 function openProject() {
+
     console.log("openProject");
 
     //dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]});
@@ -256,7 +252,7 @@ function openProject() {
         console.log(baProjectFilePath + " read");
         parseProjectFile(data);
     });
-}
+};
 
 function parseProjectFile(xml) {
 
@@ -266,4 +262,4 @@ function parseProjectFile(xml) {
             return;
         }
     });
-}
+};
