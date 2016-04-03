@@ -26,6 +26,32 @@ var parseXML = require('xml2js').parseString;
 
 
 
+var baTemplate = [
+
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'New Presentation',
+                accelerator: 'Command+N',
+                click: function() { app.quit(); }
+            },
+            {
+                label: 'Open Presentation',
+                accelerator: 'Command+O',
+                click: function() { app.quit(); }
+            },
+            {
+                type: 'separator'
+            },
+            {
+                label: 'Quit',
+                accelerator: 'Command+Q',
+                click: function() { remote.app.quit(); }
+            },
+        ]
+    }
+];
 
 var template = [
     {
@@ -135,7 +161,7 @@ var template = [
 
 if (process.platform == 'darwin') {
     var name = require('electron').remote.app.getName();
-    template.unshift({
+    baTemplate.unshift({
         label: name,
         submenu: [
             {
@@ -178,18 +204,18 @@ if (process.platform == 'darwin') {
         ]
     });
     // Window menu.
-    template[3].submenu.push(
-        {
-            type: 'separator'
-        },
-        {
-            label: 'Bring All to Front',
-            role: 'front'
-        }
-    );
+    //baTemplate[3].submenu.push(
+    //    {
+    //        type: 'separator'
+    //    },
+    //    {
+    //        label: 'Bring All to Front',
+    //        role: 'front'
+    //    }
+    //);
 }
 
-var menu = Menu.buildFromTemplate(template);
+var menu = Menu.buildFromTemplate(baTemplate);
 console.log("create menu object");
 Menu.setApplicationMenu(menu);
 console.log("set application menu");
